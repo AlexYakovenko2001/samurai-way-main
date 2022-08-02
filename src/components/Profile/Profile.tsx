@@ -4,7 +4,7 @@ import MyPosts from './MyPosts/MyPosts';
 
 const Profile = () => {
     return (
-        <div className={s.content}>
+        <div>
             <div>
                 <img
                     src="https://c4.wallpaperflare.com/wallpaper/826/586/471/nature-space-blue-ultrawide-wallpaper-thumb.jpg"
