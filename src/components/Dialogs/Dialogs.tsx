@@ -25,32 +25,28 @@ const DialogItem = (props: DialogItemPropsType) => {
 
 
 const Dialogs = () => {
-    const dialogDate = [
+    const dialogs = [
         {id: 1, name: 'Maks'},
         {id: 2, name: 'Sara'},
         {id: 3, name: 'Nastya'},
         {id: 4, name: 'Kostya'},
         {id: 5, name: 'Katya'}
     ]
-const messageDate = [
+const messages = [
     {id: 1, message: 'Hello!'},
     {id: 2, message: 'How are you?'},
     {id: 3, message: 'What are you doing?'},
 ]
+    const dialogsElements = dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
+    const messagesElements = messages.map(m=><Message key={m.id} message={m.message}/>)
     return (
         <div>
             <div className={s.dialogs}>
                 <div className={s.dialogItem}>
-                    <DialogItem name={dialogDate[0].name} id={dialogDate[0].id} />
-                    <DialogItem name={dialogDate[1].name} id={dialogDate[1].id} />
-                    <DialogItem name={dialogDate[2].name} id={dialogDate[2].id} />
-                    <DialogItem name={dialogDate[3].name} id={dialogDate[3].id} />
-                    <DialogItem name={dialogDate[4].name} id={dialogDate[4].id} />
+                    {dialogsElements}
                 </div>
                 <div className={s.messages}>
-                    <Message message={messageDate[0].message}/>
-                    <Message message={messageDate[1].message}/>
-                    <Message message={messageDate[2].message}/>
+                    {messagesElements}
                 </div>
             </div>
         </div>
