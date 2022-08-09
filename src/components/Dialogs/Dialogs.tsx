@@ -1,44 +1,18 @@
 import s from './Dialogs.module.css'
-import {NavLink} from 'react-router-dom';
+import Message from './Message/Message';
+import DialogItem from './DialogItem/DialogItem';
+import {DialogType, MessageType} from '../../App';
+import React from 'react';
 
-
-type MessagePropsType = {
-    message: string
-}
-const Message = (props: MessagePropsType) => {
-    return <div className={s.message}>{props.message}</div>
-}
-
-
-type DialogItemPropsType = {
-    name: string
-    id: number
-}
-const DialogItem = (props: DialogItemPropsType) => {
-    let path = '/dialogs/' + props.id
-    return (
-        <div className={ `${s.dialog} ${s.active}` }>
-            <NavLink to={path}>{props.name}</NavLink>
-        </div>
-    )
+type DialogsPropsType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
 }
 
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-const Dialogs = () => {
-    const dialogs = [
-        {id: 1, name: 'Maks'},
-        {id: 2, name: 'Sara'},
-        {id: 3, name: 'Nastya'},
-        {id: 4, name: 'Kostya'},
-        {id: 5, name: 'Katya'}
-    ]
-const messages = [
-    {id: 1, message: 'Hello!'},
-    {id: 2, message: 'How are you?'},
-    {id: 3, message: 'What are you doing?'},
-]
-    const dialogsElements = dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
-    const messagesElements = messages.map(m=><Message key={m.id} message={m.message}/>)
+    const dialogsElements = props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
+    const messagesElements = props.messages.map(m=><Message key={m.id} message={m.message} id={m.id}/>)
     return (
         <div>
             <div className={s.dialogs}>
