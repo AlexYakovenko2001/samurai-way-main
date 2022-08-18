@@ -36,6 +36,7 @@ type StatePropsType = {
 }
 type AppPropsType = {
     state: StatePropsType
+    addPost: (textForNewPost: string) => void
 }
 
 
@@ -47,7 +48,7 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path="/profile" render={() =>
-                        <Profile posts={props.state.profilePage.posts}/>}/>
+                        <Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
                     <Route path="/dialogs" render={() =>
                         <Dialogs
                             dialogs={props.state.dialogsPage.dialogs}

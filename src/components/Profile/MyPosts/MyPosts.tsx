@@ -5,6 +5,7 @@ import {PostType} from '../../../App';
 
 type MyPostsPropsType = {
     posts: Array<PostType>
+    addPost: (textForNewPost: string) => void
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -14,7 +15,9 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
         const text = newPostElement.current?.value
-        alert(text)
+        if (text) {
+            props.addPost(text)
+        }
     }
     return (
         <div className={s.postBlock}>

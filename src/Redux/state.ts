@@ -16,4 +16,10 @@ const state = {
             {id: 3, message: 'What are you doing?'}]
     }
 }
+
+export const addPost = (textForNewPost: string) => {
+    const newPost = {id: 3, message: textForNewPost, likesCount: 0}
+    state.profilePage.posts.push(newPost)
+}
+
 export default state
