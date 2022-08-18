@@ -22,10 +22,20 @@ export type PostType = {
     message: string
     likesCount: number
 }
-type AppPropsType = {
+type ProfilePageType = {
+    posts: Array<PostType>
+}
+type dialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    posts: Array<PostType>
+
+}
+type StatePropsType = {
+    profilePage: ProfilePageType
+    dialogsPage: dialogsPageType
+}
+type AppPropsType = {
+    state: StatePropsType
 }
 
 
@@ -36,8 +46,12 @@ function App(props: AppPropsType) {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path="/profile" render={() => <Profile posts={props.posts}/>}/>
-                    <Route path="/dialogs" render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                    <Route path="/profile" render={() =>
+                        <Profile posts={props.state.profilePage.posts}/>}/>
+                    <Route path="/dialogs" render={() =>
+                        <Dialogs
+                            dialogs={props.state.dialogsPage.dialogs}
+                            messages={props.state.dialogsPage.messages}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

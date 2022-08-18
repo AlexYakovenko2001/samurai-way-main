@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import s from './MyPosts.module.css'
 import Post from './MyPost/Post';
 import {PostType} from '../../../App';
@@ -11,15 +11,20 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     const postsElement = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
+    const newPostElement = useRef<HTMLTextAreaElement>(null)
+    const addPost = () => {
+        const text = newPostElement.current?.value
+        alert(text)
+    }
     return (
         <div className={s.postBlock}>
             <h4>my posts</h4>
             <div>
                 <div>
-                <textarea></textarea>
+                <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                <button>add post</button>
+                <button onClick={addPost}>add post</button>
                 </div>
             </div>
             <div>
