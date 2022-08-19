@@ -1,14 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import state, {addPost} from './Redux/state'
-
-console.log(state.profilePage.posts)
+import state from './Redux/state'
+import {rerenderEntireTree} from './render';
 
 
-ReactDOM.render(
-    <App state={state} addPost={addPost}
-    />,
-  document.getElementById('root')
-);
+rerenderEntireTree(state)

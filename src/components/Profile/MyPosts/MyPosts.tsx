@@ -17,6 +17,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         const text = newPostElement.current?.value
         if (text) {
             props.addPost(text)
+            newPostElement.current.value = ''
         }
     }
     return (
