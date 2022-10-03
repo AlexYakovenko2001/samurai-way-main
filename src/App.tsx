@@ -24,6 +24,7 @@ export type PostType = {
 }
 type ProfilePageType = {
     posts: Array<PostType>
+    newPostText: string
 }
 type dialogsPageType = {
     dialogs: Array<DialogType>
@@ -36,7 +37,8 @@ export type StatePropsType = {
 }
 type AppPropsType = {
     state: StatePropsType
-    addPost: (textForNewPost: string) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
 }
 
 
@@ -47,7 +49,10 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path="/profile" render={() =>
-                        <Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
+                        <Profile posts={props.state.profilePage.posts}
+                                 addPost={props.addPost}
+                                 newPostText={props.state.profilePage.newPostText}
+                                 updateNewPostText={props.updateNewPostText}/>}/>
                     <Route path="/dialogs" render={() =>
                         <Dialogs
                             dialogs={props.state.dialogsPage.dialogs}
