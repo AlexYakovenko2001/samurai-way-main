@@ -1,8 +1,42 @@
-import {PostType, StateType} from '../App';
 
-let rerenderEntireTree = (state: StateType) => {}
+export type DialogType = {
+    id: number
+    name: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+type dialogsPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
 
-const state: StateType = {
+}
+export type StateType = {
+    profilePage: ProfilePageType
+    dialogsPage: dialogsPageType
+}
+
+export type StoreType = {
+    _state: StateType
+    getStore: () => StateType
+    _callSubscriber: (state: StateType) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
+    subscribe: (observer: (state: StateType) => void) => void
+}
+
+const store: StoreType = {
+    _state: {
     profilePage: {
         posts: [{id: 1, message: 'Hi! How are you?', likesCount: 0},
             {id: 2, message: 'It\'s my first post', likesCount: 23}],
@@ -20,19 +54,26 @@ const state: StateType = {
             {id: 2, message: 'How are you?'},
             {id: 3, message: 'What are you doing?'}]
     }
+},
+    getStore() {
+        return this._state
+    },
+    _callSubscriber() {
+        console.log('state changed')
+    },
+    addPost() {
+        const newPost: PostType = {id: 3, message: this._state.profilePage.newPostText, likesCount: 0}
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber(this._state)
+    },
+    updateNewPostText(newPostText) {
+        this._state.profilePage.newPostText = newPostText
+        this._callSubscriber(this._state)
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer;
+    }
 }
 
-export const addPost = () => {
-    const newPost: PostType = {id: 3, message: state.profilePage.newPostText, likesCount: 0}
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
-}
-export const updateNewPostText = (newPostText: string) => {
-    state.profilePage.newPostText = newPostText
-    rerenderEntireTree(state)
-}
-export const subscribe = (observer: (state: StateType) => void) => {
-    rerenderEntireTree = observer;
-}
-export default state
+export default store

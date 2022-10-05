@@ -1,9 +1,8 @@
 import React from 'react';
-import s from './Profile.module.css'
 import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {PostType} from '../../App';
-import {updateNewPostText} from '../../Redux/state';
+import {PostType} from '../../Redux/state';
+
 
 type ProfilePropsType = {
     posts: Array<PostType>
@@ -19,7 +18,7 @@ const Profile: React.FC<ProfilePropsType> = (props) => {
            <MyPosts posts={props.posts}
                     addPost={props.addPost}
                     newPostText={props.newPostText}
-                    updateNewPostText={updateNewPostText}/>
+                    updateNewPostText={props.updateNewPostText}/>
         </div>
     );
 };

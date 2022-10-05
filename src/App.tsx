@@ -8,37 +8,11 @@ import {Route} from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
+import {StoreType} from './Redux/state';
 
-export type DialogType = {
-    id: number
-    name: string
-}
-export type MessageType = {
-    id: number
-    message: string
-}
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
-type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
-}
-type dialogsPageType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
 
-}
-export type StatePropsType = {
-    profilePage: ProfilePageType
-    dialogsPage: dialogsPageType
-}
 type AppPropsType = {
-    state: StatePropsType
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
+    store: StoreType
 }
 
 
@@ -49,14 +23,14 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path="/profile" render={() =>
-                        <Profile posts={props.state.profilePage.posts}
-                                 addPost={props.addPost}
-                                 newPostText={props.state.profilePage.newPostText}
-                                 updateNewPostText={props.updateNewPostText}/>}/>
+                        <Profile posts={props.store.getStore().profilePage.posts}
+                                 addPost={props.store.addPost.bind(props.store)}
+                                 newPostText={props.store.getStore().profilePage.newPostText}
+                                 updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
                     <Route path="/dialogs" render={() =>
                         <Dialogs
-                            dialogs={props.state.dialogsPage.dialogs}
-                            messages={props.state.dialogsPage.messages}/>}/>
+                            dialogs={props.store.getStore().dialogsPage.dialogs}
+                            messages={props.store.getStore().dialogsPage.messages}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

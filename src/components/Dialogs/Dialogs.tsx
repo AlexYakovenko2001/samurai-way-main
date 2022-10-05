@@ -1,8 +1,8 @@
 import s from './Dialogs.module.css'
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
-import {DialogType, MessageType} from '../../App';
-import React, {useRef} from 'react';
+import React, {createRef} from 'react';
+import {DialogType, MessageType} from '../../Redux/state';
 
 type DialogsPropsType = {
     dialogs: Array<DialogType>
@@ -11,10 +11,14 @@ type DialogsPropsType = {
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const newMessageElement = useRef<HTMLTextAreaElement>(null)
+    let newMessageElement = createRef<HTMLTextAreaElement>()
     const addMessageHandler = () => {
         const message = newMessageElement.current?.value
-        alert(message)
+        if (message) {
+            alert(message)
+            if (newMessageElement.current)
+            newMessageElement.current.value = ''
+        }
     }
 
     const dialogsElements = props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id} />)
