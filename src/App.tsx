@@ -16,7 +16,7 @@ type AppPropsType = {
 }
 
 
-function App(props: AppPropsType) {
+const App: React.FC<AppPropsType> = (props) => {
     return (
             <div className="app-wrapper">
                 <Header/>
@@ -24,9 +24,8 @@ function App(props: AppPropsType) {
                 <div className="app-wrapper-content">
                     <Route path="/profile" render={() =>
                         <Profile posts={props.store.getStore().profilePage.posts}
-                                 addPost={props.store.addPost.bind(props.store)}
-                                 newPostText={props.store.getStore().profilePage.newPostText}
-                                 updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
+                                 dispatch={props.store.dispatch.bind(props.store)}
+                                 newPostText={props.store.getStore().profilePage.newPostText}/>}/>
                     <Route path="/dialogs" render={() =>
                         <Dialogs
                             dialogs={props.store.getStore().dialogsPage.dialogs}
