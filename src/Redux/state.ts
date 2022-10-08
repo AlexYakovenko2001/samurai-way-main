@@ -33,15 +33,6 @@ export type StoreType = {
     subscribe: (observer: (state: StateType) => void) => void
     dispatch: (action: ActionsTypes) => void
 }
-type AddPostActionType = {
-    type: 'ADD-POST'
-}
-type UpdateNewPostText = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}
-export type ActionsTypes = AddPostActionType | UpdateNewPostText
-
 
 const store: StoreType = {
     _state: {
@@ -85,6 +76,22 @@ const store: StoreType = {
             this._callSubscriber(this._state)
         }
     }
+}
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextType
+
+type AddPostActionType = ReturnType<typeof addPostAC>
+export const addPostAC = () => {
+    return {
+        type: 'ADD-POST'
+    } as const
+}
+
+type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
+export const updateNewPostTextAC = (newPostText: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newPostText
+    } as const
 }
 
 export default store
