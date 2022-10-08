@@ -18,23 +18,25 @@ type AppPropsType = {
 
 const App: React.FC<AppPropsType> = (props) => {
     return (
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path="/profile" render={() =>
-                        <Profile posts={props.store.getStore().profilePage.posts}
-                                 dispatch={props.store.dispatch.bind(props.store)}
-                                 newPostText={props.store.getStore().profilePage.newPostText}/>}/>
-                    <Route path="/dialogs" render={() =>
-                        <Dialogs
-                            dialogs={props.store.getStore().dialogsPage.dialogs}
-                            messages={props.store.getStore().dialogsPage.messages}/>}/>
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className="app-wrapper-content">
+                <Route path="/profile" render={() =>
+                    <Profile posts={props.store.getStore().profilePage.posts}
+                             dispatch={props.store.dispatch.bind(props.store)}
+                             newPostText={props.store.getStore().profilePage.newPostText}/>}/>
+                <Route path="/dialogs" render={() =>
+                    <Dialogs
+                        dialogs={props.store.getStore().dialogsPage.dialogs}
+                        messages={props.store.getStore().dialogsPage.messages}
+                        newMessageText={props.store.getStore().dialogsPage.newMessageText}
+                        dispatch={props.store.dispatch.bind(props.store)}/>}/>
+                <Route path="/news" render={() => <News/>}/>
+                <Route path="/music" render={() => <Music/>}/>
+                <Route path="/settings" render={() => <Settings/>}/>
             </div>
+        </div>
     );
 }
 
